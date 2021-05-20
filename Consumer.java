@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.Scanner;
 
 
-class Client{
+class Consumer{
 public static void main(String args[])throws Exception{
 Socket s=new Socket("localhost",3333);
 DataOutputStream dout=new DataOutputStream(s.getOutputStream());
