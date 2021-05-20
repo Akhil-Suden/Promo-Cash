@@ -6,22 +6,53 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.Duration;
 
-final VAL=Duration.ofSeconds(10);
+HashMap<String,User> map=new HashMap<String,Queue>();
+
+//final VAL=Duration.ofSeconds(10);  //validity of coupon
 
 struct coupon{
   int amt;
   LocalDateTime born;    //time at which coupon was created
-  int valid;    //it is fixed validity period
 }
+
+class User{
+  int bal;   //balance
+  Queue<coupon> account;
+
+  User(){
+    bal=0;
+    Queue<coupon> account=new LinkedList<coupon>();
+  }
+
+  void addcoupon(int amt1){
+    this.account.offer(coupon(amt,LocalDateTime.now()));
+  }
+
+  void usecoupon(int amt1){
+    if(this.bal<amt1){
+      System.Out.println("Insufficient balance to make the transaction.");
+    }
+    elseif (this.account.peek.amt>amt1){
+       this.account.peek.amt-=amt1;
+       bal-=amt1;
+      System.Out.print("Amount deducted succesfully");
+    }
+    else{
+      int ded=this.account.account.poll.amt;
+      bal-=ded;
+      this.account.usecoupon(amt1-ded);
+      System.Out.print("Amount deducted succesfully");
+                          }
+    }
+  }
+
 class MyServer{
 public static void main(String args[])throws Exception{
-Queue<coupon> account[] = new Queue[2];   //array of queue, each queue element for different user
-HashMap<String,Queue> map=new HashMap<String,Queue>();
-for(int i = 0; i <= 1; i++)
-  bank[i] = new LinkedList<coupon>();
-map.put("A",account[0]);
-map.put("B",account[1]);
-//map.get("name").offer(coupon(amt,LocalDateTime.now(),VAL));
+User A=new User();
+User B=new User();
+map.put("A",A);
+map.put("B",B);
+
 
 ServerSocket ss=new ServerSocket(3333);
 Socket s=ss.accept();
