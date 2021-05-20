@@ -29,6 +29,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunManager" selected="Application.Admin">
     <configuration name="Admin" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -82,12 +83,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Admin" />
+      <item itemvalue="Application.Point" />
+      <item itemvalue="Application.Server" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Admin" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.Point" />
-        <item itemvalue="Application.Server (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -101,7 +107,7 @@
       <updated>1621518095186</updated>
       <workItem from="1621518105354" duration="1738000" />
       <workItem from="1621519933319" duration="801000" />
-      <workItem from="1621521795185" duration="7031000" />
+      <workItem from="1621521795185" duration="12723000" />
     </task>
     <servers />
   </component>
@@ -123,5 +129,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="abc" />
     <option name="LAST_COMMIT_MESSAGE" value="abc" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

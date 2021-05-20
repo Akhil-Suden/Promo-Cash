@@ -58,11 +58,27 @@ map.put("B",B); */
         ServerSocket ss = new ServerSocket(3333);
         Socket s = ss.accept();
         DataInputStream din = new DataInputStream(s.getInputStream());
-        String name = (String) din.readUTF();
-        System.out.println("message= " + name);
-        int amt = (int) din.readInt();
-        System.out.println("message= " + amt);
-        userA.addCoupon(amt);
+        DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+
+        int closeServer = 1;
+        while(closeServer != 0) {
+            String name = (String) din.readUTF();
+            System.out.println("message= " + name);
+            int amt = (int) din.readInt();
+            System.out.println("message= " + amt);
+            String addingCoupon = userA.addCoupon(amt);
+            dout.writeUTF(addingCoupon);
+            dout.flush();
+
+            Scanner input = new Scanner(System.in);
+
+
+            System.out.println("Close the admin? (y/n)");
+            String yn = input.next();
+            if (yn.equals("y") || yn.equals("Y")) {
+                closeServer = 0;
+            }
+        }
 
 
         din.close();

@@ -1,25 +1,25 @@
 package server;
 
-import java.time.LocalDateTime;
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class User {
-    int bal;   //balance
-    Queue<Coupon> account;
+    int bal =0;   //balance
+    Deque<Coupon> account =new LinkedList<>();
 
     User(){
-        bal=0;
-        Queue<Coupon> account=new LinkedList<>();
+
     }
 
-    void addCoupon(int amt1){
-        bal+=amt1;
-        account.add(new Coupon(amt1, LocalDateTime.now()));
-        System.out.println("Amount added successfully." );
+    String addCoupon(int amt){
+        bal= bal + amt;
+        Coupon c = new Coupon(amt);
+        account.add(c);
+        assert account.peek() != null;
+        return "Amount added successfully & total balance is : " + bal + "   " + account.peek().getAmt();
     }
 
-    /*void usecoupon(int amt1){
+    /*void useCoupon(int amt1){
         if(this.bal<amt1){
             System.Out.println("Insufficient balance to make the transaction.");
         }
