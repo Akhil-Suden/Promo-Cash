@@ -21,12 +21,8 @@ class Admin{
             dout.flush();
             String addingCoupon = (String) din.readUTF();
             System.out.println(addingCoupon);
+            closeAdmin=din.readInt();
 
-            System.out.println("Close the admin? (y/n)");
-            String yn = input.next();
-            if(yn.equals("y") || yn.equals("Y")){
-                closeAdmin=0;
-            }
         }
 
 
@@ -35,4 +31,3 @@ class Admin{
         s.close();
     }
 }
-
