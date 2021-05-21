@@ -1,12 +1,9 @@
 import java.net.*;
 import java.io.*;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.time.Duration;
-
-/*HashMap<String,User> map=new HashMap<String,Queue>();*/
 
 //final VAL=Duration.ofSeconds(10);  //validity of coupon
 
@@ -15,6 +12,7 @@ public class Server {
     public static void main(String args[]) throws Exception {
         User A = new User();
         User B=new User();
+        HashMap<String,User> map=new HashMap<String,User>();
         map.put("A",A);
         map.put("B",B);
 
@@ -26,8 +24,9 @@ public class Server {
         int closeServer = 1;
         while(closeServer != 0) {
             String name = (String) din.readUTF();
+
             int amt = (int) din.readInt();
-            String addingCoupon = A.addCoupon(amt);
+            String addingCoupon = map.get(name).addCoupon(amt);
             System.out.println("UserName " + name+" credited with amount "+amt+" succesfully.");
             dout.writeUTF(addingCoupon);
             dout.flush();
