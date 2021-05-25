@@ -16,53 +16,83 @@ public class Server {
         HashMap<String,User> map=new HashMap<String,User>();
         map.put("A",A);
         map.put("B",B);*/
+        HashMap<String,User> map=new HashMap<String,User>();
 
         ServerSocket ss = new ServerSocket(4445);
         while (true) {
-        Socket s = ss.accept();
-        System.out.println("Connection Established");
-  			ServerThread st = new ServerThread(s);
-  			st.start();}
-        }}
+            Socket s = ss.accept();
+            System.out.println("Connection Established");
+            Thread st = new ServerThread(s,map);
+            st.start();
+        }
+    }
+}
 
 class ServerThread extends Thread {
-    	String line = null;
+      String line = null;
       BufferedReader is = null;
       PrintWriter os = null;
       Socket s = null;
       Credit c = null;
+      Debit d = null;
+    HashMap<String,User> map=null;
 
-      public ServerThread(Socket s) {
+      public ServerThread(Socket s,HashMap<String, User> map) {
         		this.s = s;
+        		this.map = map;
         	}
 
       public void run() {
-        int closeServer = 1;
-        try{ InputStream o = s.getInputStream();
-             ObjectInput s1 = new ObjectInputStream(o);
-             String str= (String) s1.readObject();
-             while(closeServer != 0) {
-             c = (Credit) s1.readObject();
-             System.out.println(str);
-             System.out.println(c.name+" "+c.amt);
+          int closeServer = 1;
+          //User A = new User();
+          //User B = new User();
+          while(closeServer != 0) {
+              try {
+                  InputStream o = s.getInputStream();
+                  ObjectInput s1 = new ObjectInputStream(o);
+                  String str = (String) s1.readObject();
 
-             Scanner input = new Scanner(System.in);
-             DataOutputStream dout = new DataOutputStream(s.getOutputStream());
+                  if(str.equals("Credit")){
+                      c = (Credit) s1.readObject();
+                      System.out.println(str);
+                      System.out.println(c.name + " " + c.amt);
 
-             System.out.println("Close the admin? (y/n)");
-             String yn = input.next();
-             if (yn.equals("y") || yn.equals("Y")) {
-                 closeServer = 0;
-                 s1.close();
-                 dout.writeInt(0);
-             }
-             else
-               dout.writeInt(1);
-           }}
-        catch (Exception e) {
-           System.out.println(e.getMessage());
-           System.out.println("Error ");
-           System.exit(1);  }
+                      if (!map.containsKey(c.name)) {
+                          map.put(c.name, new User());
+                      }
+                      System.out.println(map.get(c.name).addCoupon(c.amt));
+                  }
+
+                  if(str.equals("Debit")){
+                      d = (Debit) s1.readObject();
+                      System.out.println(str);
+                      System.out.println(d.name + " " + d.amt);
+
+                      if (!map.containsKey(d.name)) {
+                          System.out.println("User doesnt exist. Contact admin");
+                      }
+                      map.get(d.name).useCoupon(d.amt);
+                  }
+
+
+
+                  //System.out.println(A.addCoupon(c.amt));
+
+
+                  DataInputStream din = new DataInputStream(s.getInputStream());
+                  closeServer=din.readInt();
+                  if (closeServer==0) {
+                      s1.close();
+                      break;
+                  }
+
+              }
+              catch (Exception e) {
+                  System.out.println(e.getMessage());
+                  System.out.println("Error ");
+                  System.exit(1);
+              }
+          }
      }
    }
 

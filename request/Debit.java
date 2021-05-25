@@ -1,6 +1,12 @@
 package request;
 
-public class Debit{
-int name;
-int amt;
+public class Debit implements java.io.Serializable {
+    public String name;
+    public int amt;
+
+    public Debit (String name, int amt) {
+        this.name = name;
+        this.amt = amt;
+    }
+
 }

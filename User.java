@@ -12,20 +12,20 @@ public class User {
         return "Amount added successfully & total balance is : " + bal ;
     }
 
-    /*void useCoupon(int amt1){
-        if(this.bal<amt1){
-            System.Out.println("Insufficient balance to make the transaction.");
+    void useCoupon(int amt){
+        if(this.bal<amt){
+            System.out.println("Insufficient balance to make the transaction.");
         }
-        else if(this.account.peek.amt>amt1){
-            this.account.peek.amt-=amt1;
-            bal-=amt1;
-            System.Out.print("Amount deducted successfully");
+        else if(this.account.peek().getAmt()>amt){
+            account.peek().setAmt(account.peek().getAmt()-amt);
+            bal-=amt;
+            System.out.println("Amount deducted successfully  " + bal);
         }
         else{
-            int ded=this.account.account.poll.amt;
-            bal-=ded;
-            this.account.usecoupon(amt1-ded);
-            System.Out.print("Amount deducted successfully");
+            int deduct=this.account.poll().getAmt();
+            bal-=deduct;
+            useCoupon(amt-deduct);
+            System.out.println("Amount deducted successfully  " + bal);
         }
-    }*/
+    }
 }
