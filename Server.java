@@ -74,10 +74,7 @@ class ServerThread extends Thread {
                       map.get(d.name).useCoupon(d.amt);
                   }
 
-
-
                   //System.out.println(A.addCoupon(c.amt));
-
 
                   DataInputStream din = new DataInputStream(s.getInputStream());
                   closeServer=din.readInt();

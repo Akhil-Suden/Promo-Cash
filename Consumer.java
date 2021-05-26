@@ -34,8 +34,9 @@ class Consumer{
                     s1.close();
                     s.flush();
                     s.close();
-                    break;
                 }
+                else
+                dout.writeInt(1);          
             }
         } catch(Exception e){
             System.out.println(e.getMessage());
