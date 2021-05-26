@@ -54,24 +54,31 @@ class ServerThread extends Thread {
 
                   if(str.equals("Credit")){
                       c = (Credit) s1.readObject();
-                      System.out.println(str);
-                      System.out.println(c.name + " " + c.amt);
-
+                   // System.out.println(str);
                       if (!map.containsKey(c.name)) {
                           map.put(c.name, new User());
                       }
-                      System.out.println(map.get(c.name).addCoupon(c.amt));
-                  }
+                      map.get(c.name).addCoupon(c.amt);
+                      System.out.println(c.name +" credited with amount= " + c.amt);
+                      System.out.println(c.name+"'s balance = "+map.get(c.name).bal);}
+
 
                   if(str.equals("Debit")){
                       d = (Debit) s1.readObject();
-                      System.out.println(str);
-                      System.out.println(d.name + " " + d.amt);
-
+                 //  System.out.println(str);
                       if (!map.containsKey(d.name)) {
-                          System.out.println("User doesnt exist. Contact admin");
+                          System.out.println("User doesn't exist. Contact Admin");
                       }
-                      map.get(d.name).useCoupon(d.amt);
+                      else{
+                      if(map.get(d.name).useCoupon(d.amt)){
+                        System.out.println(d.name +" debited with amount= " + d.amt);
+                        System.out.println(d.name+"'s balance = "+map.get(d.name).bal);
+                      }
+                      else
+                       System.out.println("Insufficient balance to make the transaction.");
+                       System.out.println(d.name+"'s balance = "+map.get(d.name).bal);
+                     }
+
                   }
 
                   //System.out.println(A.addCoupon(c.amt));
