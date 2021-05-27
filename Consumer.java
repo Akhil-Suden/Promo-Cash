@@ -1,6 +1,3 @@
-import request.Credit;
-import request.Debit;
-
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
@@ -18,14 +15,12 @@ class Consumer{
                 InputStream inputStream = s1.getInputStream();
                 ObjectInput oi = new ObjectInputStream(inputStream);
 
-                s.writeObject("Debit");
-
                 Scanner input = new Scanner(System.in);
                 System.out.print("Enter User name: ");
                 String name = input.next();
                 System.out.print("Enter Amount to debit: ");
                 int amt = input.nextInt();
-                s.writeObject(new Debit(name, amt));
+                s.writeObject(new Request("Debit", name, amt));
 
 
                 System.out.println((String) oi.readObject());

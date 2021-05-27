@@ -17,7 +17,7 @@ public class User {
            return false;
     //        System.out.println("Insufficient balance to make the transaction.");
         }
-        else if(this.account.peek().getAmt()>amt){
+        else if(this.account.peek().getAmt()>=amt){
             account.peek().setAmt(account.peek().getAmt()-amt);
             bal-=amt;
             return true;

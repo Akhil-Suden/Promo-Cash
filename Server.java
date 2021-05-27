@@ -33,8 +33,7 @@ class ServerThread extends Thread {
       BufferedReader is = null;
       PrintWriter os = null;
       Socket s = null;
-      Credit c = null;
-      Debit d = null;
+      Request r=null;
     HashMap<String,User> map=null;
 
       public ServerThread(Socket s,HashMap<String, User> map) {
@@ -54,32 +53,32 @@ class ServerThread extends Thread {
                   OutputStream outputStream = s.getOutputStream();
                   ObjectOutput oo = new ObjectOutputStream(outputStream);
 
-                  String str = (String) s1.readObject();
+                  r = (Request) s1.readObject();
                   String output= new String();
-                  if(str.equals("Credit")) {
-                      c = (Credit) s1.readObject();
+                  if(r.requestType.equals("Credit")) {
+
                       // System.out.println(str);
-                      if (!map.containsKey(c.name)) {
-                          map.put(c.name, new User());
+                      if (!map.containsKey(r.name)) {
+                          map.put(r.name, new User());
                       }
-                      map.get(c.name).addCoupon(c.amt);
-                      output = c.name + " credited with amount= " + c.amt + "\n" + c.name + "'s balance = " + map.get(c.name).bal;
+                      map.get(r.name).addCoupon(r.amt);
+                      output = r.name + " credited with amount= " + r.amt + "\n" + r.name + "'s balance = " + map.get(r.name).bal;
 
                   }
 
 
-                  else if(str.equals("Debit")){
-                      d = (Debit) s1.readObject();
+                  else if(r.requestType.equals("Debit")){
+
                  //  System.out.println(str);
-                      if (!map.containsKey(d.name)) {
+                      if (!map.containsKey(r.name)) {
                           output = "User doesn't exist. Contact Admin";
                       }
                       else{
-                      if(map.get(d.name).useCoupon(d.amt)){
-                          output = d.name +" debited with amount= " + d.amt + "\n" + d.name+"'s balance = "+map.get(d.name).bal;
+                      if(map.get(r.name).useCoupon(r.amt)){
+                          output = r.name +" debited with amount= " + r.amt + "\n" + r.name+"'s balance = "+map.get(r.name).bal;
                       }
                       else
-                          output = "Insufficient balance to make the transaction." + "\n" + d.name+"'s balance = "+map.get(d.name).bal;
+                          output = "Insufficient balance to make the transaction." + "\n" + r.name+"'s balance = "+map.get(r.name).bal;
                      }
 
                   }

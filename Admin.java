@@ -1,7 +1,6 @@
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
-import request.*;
 
 class Admin{
   public static void main(String args[]) throws Exception{
@@ -17,14 +16,12 @@ class Admin{
               ObjectInput oi = new ObjectInputStream(inputStream);
 
 
-              s.writeObject("Credit");
-
               Scanner input = new Scanner(System.in);
               System.out.print("Enter User name: ");
               String name = input.next();
               System.out.print("Enter Amount to credit: ");
               int amt = input.nextInt();
-              s.writeObject(new Credit(name, amt));
+              s.writeObject(new Request("Credit", name, amt));
 
 
               System.out.println((String) oi.readObject());
