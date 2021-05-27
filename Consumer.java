@@ -14,6 +14,10 @@ class Consumer{
             while (closeClient != 0) {
                 OutputStream o = s1.getOutputStream();
                 ObjectOutput s = new ObjectOutputStream(o);
+
+                InputStream inputStream = s1.getInputStream();
+                ObjectInput oi = new ObjectInputStream(inputStream);
+
                 s.writeObject("Debit");
 
                 Scanner input = new Scanner(System.in);
@@ -22,6 +26,9 @@ class Consumer{
                 System.out.print("Enter Amount to debit: ");
                 int amt = input.nextInt();
                 s.writeObject(new Debit(name, amt));
+
+
+                System.out.println((String) oi.readObject());
 
 
                 DataOutputStream dout = new DataOutputStream(s1.getOutputStream());

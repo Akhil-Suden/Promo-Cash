@@ -12,6 +12,11 @@ class Admin{
 
               OutputStream o = s1.getOutputStream();
               ObjectOutput s = new ObjectOutputStream(o);
+
+              InputStream inputStream = s1.getInputStream();
+              ObjectInput oi = new ObjectInputStream(inputStream);
+
+
               s.writeObject("Credit");
 
               Scanner input = new Scanner(System.in);
@@ -20,6 +25,9 @@ class Admin{
               System.out.print("Enter Amount to credit: ");
               int amt = input.nextInt();
               s.writeObject(new Credit(name, amt));
+
+
+              System.out.println((String) oi.readObject());
 
 
               DataOutputStream dout = new DataOutputStream(s1.getOutputStream());

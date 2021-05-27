@@ -1,0 +1,19 @@
+Index: User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.Deque;\r\nimport java.util.LinkedList;\r\n\r\npublic class User {\r\n    int bal =0;     //balance\r\n    Deque<Coupon> account =new LinkedList<>();\r\n\r\n    String addCoupon(int amt){\r\n        bal= bal + amt;\r\n        Coupon c = new Coupon(amt);\r\n        account.add(c);\r\n        return \"Amount added successfully & total balance is : \" + bal ;\r\n    }\r\n\r\n    void useCoupon(int amt){\r\n        if(this.bal<amt){\r\n            System.out.println(\"Insufficient balance to make the transaction.\");\r\n        }\r\n        else if(this.account.peek().getAmt()>amt){\r\n            account.peek().setAmt(account.peek().getAmt()-amt);\r\n            bal-=amt;\r\n            System.out.println(\"Amount deducted successfully  \" + bal);\r\n        }\r\n        else{\r\n            int deduct=this.account.poll().getAmt();\r\n            bal-=deduct;\r\n            useCoupon(amt-deduct);\r\n            System.out.println(\"Amount deducted successfully  \" + bal);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/User.java b/User.java
+--- a/User.java	(revision 266accf4f32fe932014fcf14bf0ae41cd74fed6b)
++++ b/User.java	(date 1622019061773)
+@@ -16,7 +16,7 @@
+         if(this.bal<amt){
+             System.out.println("Insufficient balance to make the transaction.");
+         }
+-        else if(this.account.peek().getAmt()>amt){
++        else if(this.account.peek().getAmt()>=amt){
+             account.peek().setAmt(account.peek().getAmt()-amt);
+             bal-=amt;
+             System.out.println("Amount deducted successfully  " + bal);

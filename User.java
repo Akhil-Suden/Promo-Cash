@@ -24,6 +24,7 @@ public class User {
       //      System.out.println(d.name +" debited with amount= " + d.amt);
       //      System.out.println(c.name+"'s balance = "+map.get(name).bal);
         }
+
         else{
             int deduct=this.account.poll().getAmt();
             bal-=deduct;
