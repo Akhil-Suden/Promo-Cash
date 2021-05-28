@@ -27,9 +27,7 @@ class Admin{
               amt = input.nextInt();  }
               s.writeObject(new Request("Credit", name, amt));
 
-
               System.out.println((String) oi.readObject());
-
 
               DataOutputStream dout = new DataOutputStream(s1.getOutputStream());
 
